@@ -1,4 +1,5 @@
-package com.example.zoostorageservice.API.Item;
+package com.example.zoostorageservice.Bussiness.operations.changePrice;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -10,11 +11,10 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemRequest {
-    @JsonProperty("id")
+public class ChangePriceRequest {
+
+    @JsonProperty("itemId")
     private UUID id;
-    @JsonProperty("quantity")
-    private long quantity;
     @JsonProperty("price")
-    private long price;
+    private double price;
 }

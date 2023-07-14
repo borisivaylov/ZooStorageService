@@ -1,8 +1,6 @@
 package com.example.zoostorageservice.Data.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -13,11 +11,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "items")
-public class Item {
+@Table(name = "shipments")
+public class Shipment {
 
     @Id
-    private UUID Id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID shipmentId;
+    private UUID itemId;
     private long quantity;
     private double price;
 

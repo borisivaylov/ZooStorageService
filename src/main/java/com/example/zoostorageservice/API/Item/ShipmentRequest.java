@@ -10,13 +10,14 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemResponse {
+public class ShipmentRequest {
 
-    @JsonProperty("id")
+    @JsonProperty("shipmentId")
+    private UUID shipmentId;
+    @JsonProperty("itemId")
     private UUID id;
     @JsonProperty("quantity")
     private long quantity;
     @JsonProperty("price")
     private double price;
-
 }

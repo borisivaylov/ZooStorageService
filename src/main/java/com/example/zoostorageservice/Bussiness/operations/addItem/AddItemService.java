@@ -1,9 +1,9 @@
 package com.example.zoostorageservice.Bussiness.operations.addItem;
 
-import com.example.zoostorageservice.API.Item.ItemRequest;
-import com.example.zoostorageservice.Bussiness.operations.mappers.ItemMapperImpl;
-import com.example.zoostorageservice.Data.Entity.Item;
-import com.example.zoostorageservice.Data.Repository.ItemRepository;
+import com.example.zoostorageservice.API.Item.ShipmentRequest;
+import com.example.zoostorageservice.Bussiness.operations.mappers.ShipmentMapperImpl;
+import com.example.zoostorageservice.Data.Entity.Shipment;
+import com.example.zoostorageservice.Data.Repository.ShipmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AddItemService {
 
-    private final ItemRepository itemRepository;
+    private final ShipmentRepository itemRepository;
 
-    private final ItemMapperImpl itemMapper;
+    private final ShipmentMapperImpl itemMapper;
 
-    public Item createItem(ItemRequest itemRequest)
+    public Shipment createItem(ShipmentRequest itemRequest)
     {
         return itemRepository.save(itemMapper.itemGet(itemRequest));
     }
