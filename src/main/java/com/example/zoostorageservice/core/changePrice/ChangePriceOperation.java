@@ -10,20 +10,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ChangePriceServiceImpl implements ChangePriceService {
+public class ChangePriceOperation implements ChangePriceService {
 
     private final ShipmentRepository shipmentRepository;
 
    public ChangePriceResponse process(ChangePriceRequest changePriceRequest){
-            Shipment shipment = shipmentRepository.findById(changePriceRequest.getId()).orElseThrow(()
-            -> new IllegalArgumentException("There is no item with id:"+changePriceRequest.getId()));
+            Shipment shipment = shipmentRepository.findShipmentByItemId(changePriceRequest.getId());
             shipment.setPrice(changePriceRequest.getPrice());
 
             ChangePriceResponse changePriceResponse = ChangePriceResponse.builder()
                     .id(changePriceRequest.getId())
                     .price(changePriceRequest.getPrice())
                     .build();
-            shipmentRepository.save(shipment);
+                    shipmentRepository.save(shipment);
 
             return changePriceResponse;
     }

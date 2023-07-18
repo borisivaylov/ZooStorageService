@@ -10,22 +10,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ExportItemServiceImpl implements ExportItemService {
+public class ExportItemOperation implements ExportItemService {
 
     private final ShipmentRepository shipmentRepository;
 
     public ExportResponse process(ExportRequest exportRequest){
 
-        Shipment shipment= shipmentRepository.findById(exportRequest.getId()).orElseThrow(()
-            -> new IllegalArgumentException("There is no item with id:"+exportRequest.getId()));
-            shipment.setQuantity(shipment.getQuantity() - exportRequest.getQuantity());
+        Shipment shipment = shipmentRepository.findShipmentByItemId(exportRequest.getId());
+        shipment.setQuantity(shipment.getQuantity() - exportRequest.getQuantity());
 
-            shipmentRepository.save(shipment);
+        ExportResponse exportResponse = ExportResponse.builder()
+                .id(exportRequest.getId())
+                .quantity(shipment.getQuantity())
+                .build();
 
-        return ExportResponse.builder()
-                                        .id(exportRequest.getId())
-                                        .quantity(exportRequest.getQuantity())
-                                        .build();
+        shipmentRepository.save(shipment);
+
+        return exportResponse;
     }
 
 

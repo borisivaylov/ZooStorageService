@@ -31,7 +31,6 @@ public class ShipmentMapperImpl implements ShipmentMapper
         }
 
         return ShipmentResponse.builder()
-                                    .shipmentId(shipment.getShipmentId())
                                     .id(shipment.getItemId())
                                     .price(shipment.getPrice())
                                     .quantity(shipment.getQuantity())

@@ -10,18 +10,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ImportItemServiceImpl implements ImportItemService {
+public class ImportItemOperation implements ImportItemService {
 
     private final ShipmentRepository shipmentRepository;
 
     public ImportResponse process(ImportRequest importRequest){
-        Shipment shipment = shipmentRepository.findById(importRequest.getId()).orElseThrow(()->
-                new IllegalArgumentException("There is no item with id:"+importRequest.getId()));
+        Shipment shipment = shipmentRepository.findShipmentByItemId(importRequest.getId());
                 shipment.setQuantity(shipment.getQuantity()+importRequest.getQuantity());
 
                 ImportResponse importResponse = ImportResponse.builder()
                                                 .id(importRequest.getId())
-                                                .quantity(importRequest.getQuantity())
+                                                .quantity(shipment.getQuantity())
                                                 .build() ;
 
                     shipmentRepository.save(shipment);
