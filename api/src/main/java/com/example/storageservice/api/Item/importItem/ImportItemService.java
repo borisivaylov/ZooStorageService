@@ -1,6 +1,7 @@
-package com.example.zoostorageservice.api.Item.importItem;
+package com.example.storageservice.api.Item.importItem;
 
-import com.example.zoostorageservice.api.base.OperationProcessor;
+
+import com.example.storageservice.api.base.OperationProcessor;
 import org.springframework.stereotype.Service;
 
 @Service

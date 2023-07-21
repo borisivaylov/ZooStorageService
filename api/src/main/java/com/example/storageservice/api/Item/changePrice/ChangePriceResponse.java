@@ -1,6 +1,6 @@
-package com.example.zoostorageservice.api.Item.changePrice;
+package com.example.storageservice.api.Item.changePrice;
 
-import com.example.zoostorageservice.api.base.OperationResult;
+import com.example.storageservice.api.base.OperationResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 

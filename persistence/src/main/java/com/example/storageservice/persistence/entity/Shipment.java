@@ -1,4 +1,4 @@
-package com.example.zoostorageservice.persistence.entity;
+package com.example.storageservice.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

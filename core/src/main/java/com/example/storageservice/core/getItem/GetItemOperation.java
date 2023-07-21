@@ -1,12 +1,13 @@
-package com.example.zoostorageservice.core.getItem;
+package com.example.storageservice.core.getItem;
 
-import com.example.zoostorageservice.api.Item.add.ShipmentRequest;
-import com.example.zoostorageservice.api.Item.getItem.GetItemService;
-import com.example.zoostorageservice.api.Item.getItem.ItemResponse;
-import com.example.zoostorageservice.persistence.entity.Shipment;
-import com.example.zoostorageservice.persistence.repository.ShipmentRepository;
+
+import com.example.storageservice.api.Item.add.ShipmentRequest;
+import com.example.storageservice.api.Item.getItem.GetItemService;
+import com.example.storageservice.api.Item.getItem.ItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.storageservice.persistence.entity.Shipment;
+import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 @Service
 @RequiredArgsConstructor

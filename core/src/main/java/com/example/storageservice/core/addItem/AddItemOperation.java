@@ -1,13 +1,14 @@
-package com.example.zoostorageservice.core.addItem;
+package com.example.storageservice.core.addItem;
 
-import com.example.zoostorageservice.api.Item.add.ShipmentRequest;
-import com.example.zoostorageservice.api.Item.add.ShipmentResponse;
-import com.example.zoostorageservice.api.Item.add.AddItemService;
-import com.example.zoostorageservice.core.mappers.ShipmentMapperImpl;
-import com.example.zoostorageservice.persistence.entity.Shipment;
-import com.example.zoostorageservice.persistence.repository.ShipmentRepository;
+
+import com.example.storageservice.api.Item.add.AddItemService;
+import com.example.storageservice.api.Item.add.ShipmentRequest;
+import com.example.storageservice.api.Item.add.ShipmentResponse;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.storageservice.persistence.entity.Shipment;
+import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -15,24 +16,22 @@ public class AddItemOperation implements AddItemService {
 
     private final ShipmentRepository shipmentRepository;
 
-    private final ShipmentMapperImpl itemMapper;
 
     @Override
-    public ShipmentResponse process(ShipmentRequest itemRequest)
+    public ShipmentResponse process(ShipmentRequest shipmentRequest)
     {
-        Shipment shipment = Shipment.builder()
-                .itemId(itemMapper.itemGet(itemRequest).getItemId())
-                .price(itemMapper.itemGet(itemRequest).getPrice())
-                .quantity(itemMapper.itemGet(itemRequest).getQuantity())
+        Shipment shipment = Shipment.builder().itemId(shipmentRequest.getId()).
+                price(shipmentRequest.getPrice()).
+                quantity(shipmentRequest.getQuantity())
                 .build();
 
         shipmentRepository.save(shipment);
 
         return ShipmentResponse.builder()
                                             .shipmentId(shipment.getShipmentId())
-                                            .id(itemRequest.getId())
-                                            .price(itemRequest.getPrice())
-                                            .quantity(itemRequest.getQuantity())
+                                            .id(shipment.getItemId())
+                                            .price(shipment.getPrice())
+                                            .quantity(shipment.getQuantity())
                                             .build();
     }
 }

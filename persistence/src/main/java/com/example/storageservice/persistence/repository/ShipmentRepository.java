@@ -1,6 +1,7 @@
-package com.example.zoostorageservice.persistence.repository;
+package com.example.storageservice.persistence.repository;
 
-import com.example.zoostorageservice.persistence.entity.Shipment;
+
+import com.example.storageservice.persistence.entity.Shipment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

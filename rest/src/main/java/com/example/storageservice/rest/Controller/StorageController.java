@@ -1,19 +1,20 @@
-package com.example.zoostorageservice.rest.Controller;
+package com.example.storageservice.rest.Controller;
 
-import com.example.zoostorageservice.api.Item.add.ShipmentRequest;
-import com.example.zoostorageservice.api.Item.add.ShipmentResponse;
-import com.example.zoostorageservice.api.Item.getItem.ItemResponse;
-import com.example.zoostorageservice.core.addItem.AddItemOperation;
-import com.example.zoostorageservice.api.Item.changePrice.ChangePriceRequest;
-import com.example.zoostorageservice.api.Item.changePrice.ChangePriceResponse;
-import com.example.zoostorageservice.core.changePrice.ChangePriceOperation;
-import com.example.zoostorageservice.core.exportItem.ExportItemOperation;
-import com.example.zoostorageservice.api.Item.export.ExportRequest;
-import com.example.zoostorageservice.api.Item.export.ExportResponse;
-import com.example.zoostorageservice.core.getItem.GetItemOperation;
-import com.example.zoostorageservice.core.importItem.ImportItemOperation;
-import com.example.zoostorageservice.api.Item.importItem.ImportRequest;
-import com.example.zoostorageservice.api.Item.importItem.ImportResponse;
+
+import com.example.storageservice.api.Item.add.ShipmentRequest;
+import com.example.storageservice.api.Item.add.ShipmentResponse;
+import com.example.storageservice.api.Item.changePrice.ChangePriceRequest;
+import com.example.storageservice.api.Item.changePrice.ChangePriceResponse;
+import com.example.storageservice.api.Item.export.ExportRequest;
+import com.example.storageservice.api.Item.export.ExportResponse;
+import com.example.storageservice.api.Item.getItem.ItemResponse;
+import com.example.storageservice.api.Item.importItem.ImportRequest;
+import com.example.storageservice.api.Item.importItem.ImportResponse;
+import com.example.storageservice.core.addItem.AddItemOperation;
+import com.example.storageservice.core.changePrice.ChangePriceOperation;
+import com.example.storageservice.core.exportItem.ExportItemOperation;
+import com.example.storageservice.core.getItem.GetItemOperation;
+import com.example.storageservice.core.importItem.ImportItemOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class StorageController {
 
-    private final AddItemOperation addItemService;
+
+    private final AddItemOperation addItemOperation;
     private final ImportItemOperation importItemService;
     private final ExportItemOperation exportItemService;
     private final ChangePriceOperation changePriceService;
@@ -31,7 +33,7 @@ public class StorageController {
     @PostMapping("/createItem")
     ShipmentResponse addItem(@RequestBody ShipmentRequest shipmentRequest){
 
-        return addItemService.process(shipmentRequest);
+        return addItemOperation.process(shipmentRequest);
     }
    @PutMapping("/importItem")
    ImportResponse importItem(@RequestBody ImportRequest importRequest){

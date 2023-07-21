@@ -1,4 +1,4 @@
-package com.example.zoostorageservice.api.base;
+package com.example.storageservice.api.base;
 
 public interface OperationProcessor<I extends OperationInput, T extends OperationResult> {
      T process(I operationInput);

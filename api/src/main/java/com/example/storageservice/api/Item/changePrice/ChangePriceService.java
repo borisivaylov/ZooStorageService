@@ -1,6 +1,6 @@
-package com.example.zoostorageservice.api.Item.changePrice;
+package com.example.storageservice.api.Item.changePrice;
 
-import com.example.zoostorageservice.api.base.OperationProcessor;
+import com.example.storageservice.api.base.OperationProcessor;
 
 public interface ChangePriceService extends OperationProcessor<ChangePriceRequest,ChangePriceResponse> {
 

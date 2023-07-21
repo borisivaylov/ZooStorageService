@@ -1,12 +1,14 @@
-package com.example.zoostorageservice.core.changePrice;
+package com.example.storageservice.core.changePrice;
 
-import com.example.zoostorageservice.api.Item.changePrice.ChangePriceRequest;
-import com.example.zoostorageservice.api.Item.changePrice.ChangePriceResponse;
-import com.example.zoostorageservice.api.Item.changePrice.ChangePriceService;
-import com.example.zoostorageservice.persistence.entity.Shipment;
-import com.example.zoostorageservice.persistence.repository.ShipmentRepository;
+
+import com.example.storageservice.api.Item.changePrice.ChangePriceRequest;
+import com.example.storageservice.api.Item.changePrice.ChangePriceResponse;
+import com.example.storageservice.api.Item.changePrice.ChangePriceService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.storageservice.persistence.entity.Shipment;
+import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 @Service
 @RequiredArgsConstructor

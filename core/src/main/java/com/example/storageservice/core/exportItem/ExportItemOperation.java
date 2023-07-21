@@ -1,12 +1,13 @@
-package com.example.zoostorageservice.core.exportItem;
+package com.example.storageservice.core.exportItem;
 
-import com.example.zoostorageservice.api.Item.export.ExportItemService;
-import com.example.zoostorageservice.api.Item.export.ExportRequest;
-import com.example.zoostorageservice.api.Item.export.ExportResponse;
-import com.example.zoostorageservice.persistence.entity.Shipment;
-import com.example.zoostorageservice.persistence.repository.ShipmentRepository;
+
+import com.example.storageservice.api.Item.export.ExportItemService;
+import com.example.storageservice.api.Item.export.ExportRequest;
+import com.example.storageservice.api.Item.export.ExportResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.storageservice.persistence.entity.Shipment;
+import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 @Service
 @RequiredArgsConstructor
