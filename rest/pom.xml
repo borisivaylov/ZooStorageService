@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.example.zoostorage</groupId>
         <artifactId>ZooStorageService</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>rest</artifactId>
@@ -15,6 +15,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--//<revision>0.0.2-SNAPSHOT</revision>-->
     </properties>
 
     <dependencies>
@@ -22,13 +23,13 @@
         <dependency>
             <groupId>com.example.zoostorage</groupId>
             <artifactId>api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>com.example.zoostorage</groupId>
             <artifactId>core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>

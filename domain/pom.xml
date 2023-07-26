@@ -6,15 +6,35 @@
     <parent>
         <groupId>com.example.zoostorage</groupId>
         <artifactId>ZooStorageService</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
-
     <artifactId>domain</artifactId>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+
+
+    <repositories>
+        <repository>
+            <id>zooStore</id>
+            <name>ZooStore</name>
+            <url>file://C:/Users/User/.m2/repository/com/example/ZooStoreProject</url>
+        </repository>
+    </repositories>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.example.zoostore</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${zoostore.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example.zoostorage</groupId>
+            <artifactId>api</artifactId>
+            <version>${zoostore.version}</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

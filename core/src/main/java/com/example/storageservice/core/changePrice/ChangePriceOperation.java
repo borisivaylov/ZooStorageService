@@ -24,6 +24,7 @@ public class ChangePriceOperation implements ChangePriceService {
                     .id(changePriceRequest.getId())
                     .price(changePriceRequest.getPrice())
                     .build();
+
                     shipmentRepository.save(shipment);
 
             return changePriceResponse;
