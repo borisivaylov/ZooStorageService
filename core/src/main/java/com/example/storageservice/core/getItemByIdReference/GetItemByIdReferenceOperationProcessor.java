@@ -1,6 +1,7 @@
 package com.example.storageservice.core.getItemByIdReference;
 
 
+import com.example.storageservice.api.Item.getItemByIdReference.GetItemByIdReferenceOperation;
 import com.example.storageservice.api.Item.getItemByIdReference.GetItemByIdReferenceRequest;
 import com.example.storageservice.api.Item.getItemByIdReference.GetItemByIdReferenceResponse;
 import com.example.storageservice.persistence.entity.Shipment;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetItemByIdReference implements com.example.storageservice.api.Item.getItemByIdReference.GetItemByIdReference {
+public class GetItemByIdReferenceOperationProcessor implements GetItemByIdReferenceOperation {
 
     private final ShipmentRepository shipmentRepository;
     @Override

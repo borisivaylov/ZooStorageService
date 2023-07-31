@@ -2,7 +2,6 @@ package com.example.storageservice.core.getItem;
 
 
 import com.example.storageservice.api.Item.add.ShipmentRequest;
-import com.example.storageservice.api.Item.getItem.GetItemService;
 import com.example.storageservice.api.Item.getItem.ItemResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 @Service
 @RequiredArgsConstructor
-public class GetItemOperation implements GetItemService {
+public class GetItemOperationProcessor implements com.example.storageservice.api.Item.getItem.GetItemOperation {
 
     private final ShipmentRepository shipmentRepository;
 

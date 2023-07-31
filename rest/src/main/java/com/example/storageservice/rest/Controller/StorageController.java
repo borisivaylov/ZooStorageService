@@ -8,18 +8,21 @@ import com.example.storageservice.api.Item.changePrice.ChangePriceRequest;
 import com.example.storageservice.api.Item.changePrice.ChangePriceResponse;
 import com.example.storageservice.api.Item.export.ExportRequest;
 import com.example.storageservice.api.Item.export.ExportResponse;
-import com.example.storageservice.api.Item.getItem.ItemRequest;
 import com.example.storageservice.api.Item.getItem.ItemResponse;
+import com.example.storageservice.api.Item.getitembytag.GetItemByTagRequest;
+import com.example.storageservice.api.Item.getitembytag.GetItemByTagResponse;
 import com.example.storageservice.api.Item.importItem.ImportRequest;
 import com.example.storageservice.api.Item.importItem.ImportResponse;
-import com.example.storageservice.core.addItem.AddItemOperation;
-import com.example.storageservice.core.changePrice.ChangePriceOperation;
-import com.example.storageservice.core.exportItem.ExportItemOperation;
-import com.example.storageservice.core.getItem.GetItemOperation;
-import com.example.storageservice.core.importItem.ImportItemOperation;
+import com.example.storageservice.core.addItem.AddItemOperationProcessor;
+import com.example.storageservice.core.changePrice.ChangePriceOperationProcessor;
+import com.example.storageservice.core.exportItem.ExportItemOperationProcessor;
+import com.example.storageservice.core.getItem.GetItemOperationProcessor;
+import com.example.storageservice.core.getitembytag.GetItemByTagOperationProcessor;
+import com.example.storageservice.core.importItem.ImportItemOperationProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,11 +31,12 @@ import java.util.UUID;
 public class StorageController {
 
 
-    private final AddItemOperation addItemOperation;
-    private final ImportItemOperation importItemService;
-    private final ExportItemOperation exportItemService;
-    private final ChangePriceOperation changePriceService;
-    private final GetItemOperation getItemService;
+    private final AddItemOperationProcessor addItemOperation;
+    private final ImportItemOperationProcessor importItemService;
+    private final ExportItemOperationProcessor exportItemService;
+    private final ChangePriceOperationProcessor changePriceService;
+    private final GetItemOperationProcessor getItemService;
+    private final GetItemByTagOperationProcessor getItemByTagOperationProcessor;
 
     @PostMapping("/createItem")
     ShipmentResponse addItem(@RequestBody ShipmentRequest shipmentRequest) throws Exception {
@@ -55,6 +59,10 @@ public class StorageController {
     @GetMapping("/{uuid}")
     ItemResponse getItemByItemId(@PathVariable UUID uuid){
         return  getItemService.process(ShipmentRequest.builder().id(uuid).build());
+    }
+    @GetMapping("byTag/{tagName}")
+    List<GetItemByTagResponse> getItemByTag(@PathVariable String tagName) throws Exception {
+        return  getItemByTagOperationProcessor.process(GetItemByTagRequest.builder().tagName(tagName).build());
     }
 
 }

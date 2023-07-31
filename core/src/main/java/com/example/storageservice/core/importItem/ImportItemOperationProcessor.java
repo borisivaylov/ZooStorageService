@@ -11,7 +11,7 @@ import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 @Service
 @RequiredArgsConstructor
-public class ImportItemOperation implements ImportItemService {
+public class ImportItemOperationProcessor implements ImportItemService {
 
     private final ShipmentRepository shipmentRepository;
 

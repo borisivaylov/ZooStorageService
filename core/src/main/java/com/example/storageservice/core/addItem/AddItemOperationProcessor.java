@@ -1,7 +1,6 @@
 package com.example.storageservice.core.addItem;
 
 
-import com.example.storageservice.api.Item.add.AddItemService;
 import com.example.storageservice.api.Item.add.ShipmentRequest;
 import com.example.storageservice.api.Item.add.ShipmentResponse;
 
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AddItemOperation implements AddItemService {
+public class AddItemOperationProcessor implements com.example.storageservice.api.Item.add.AddItemOperation {
 
     private final ShipmentRepository shipmentRepository;
     private  final ZooStoreRestExport zooStoreRestExport;
@@ -27,7 +26,6 @@ public class AddItemOperation implements AddItemService {
     public ShipmentResponse process(ShipmentRequest shipmentRequest) throws Exception {
 
         try {
-            //System.out.println(shipmentRequest.getId().toString());
             zooStoreRestExport.getItemById(shipmentRequest.getId().toString());
         } catch (Exception e)
         {

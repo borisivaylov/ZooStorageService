@@ -1,7 +1,6 @@
 package com.example.storageservice.core.exportItem;
 
 
-import com.example.storageservice.api.Item.export.ExportItemService;
 import com.example.storageservice.api.Item.export.ExportRequest;
 import com.example.storageservice.api.Item.export.ExportResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,7 @@ import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 @Service
 @RequiredArgsConstructor
-public class ExportItemOperation implements ExportItemService {
+public class ExportItemOperationProcessor implements com.example.storageservice.api.Item.export.ExportItemOperation {
 
     private final ShipmentRepository shipmentRepository;
 
