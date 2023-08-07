@@ -19,6 +19,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.example.bffshare</groupId>
+      <artifactId>restexport</artifactId>
+      <version>0.0.3-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>com.example.zoostorage</groupId>
       <artifactId>api</artifactId>
       <version>0.0.3-SNAPSHOT</version>

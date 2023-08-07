@@ -13,12 +13,15 @@ import com.example.storageservice.api.Item.getitembytag.GetItemByTagRequest;
 import com.example.storageservice.api.Item.getitembytag.GetItemByTagResponse;
 import com.example.storageservice.api.Item.importItem.ImportRequest;
 import com.example.storageservice.api.Item.importItem.ImportResponse;
+import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseRequest;
+import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseResult;
 import com.example.storageservice.core.addItem.AddItemOperationProcessor;
 import com.example.storageservice.core.changePrice.ChangePriceOperationProcessor;
 import com.example.storageservice.core.exportItem.ExportItemOperationProcessor;
 import com.example.storageservice.core.getItem.GetItemOperationProcessor;
 import com.example.storageservice.core.getitembytag.GetItemByTagOperationProcessor;
 import com.example.storageservice.core.importItem.ImportItemOperationProcessor;
+import com.example.storageservice.core.purchase.PurchaseOperationProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +40,9 @@ public class StorageController {
     private final ChangePriceOperationProcessor changePriceService;
     private final GetItemOperationProcessor getItemService;
     private final GetItemByTagOperationProcessor getItemByTagOperationProcessor;
+    private final PurchaseOperationProcessor purchaseOperationProcessor;
 
-    @PostMapping("/createItem")
+        @PostMapping("/createItem")
     ShipmentResponse addItem(@RequestBody ShipmentRequest shipmentRequest) throws Exception {
 
         return addItemOperation.process(shipmentRequest);
@@ -63,6 +67,11 @@ public class StorageController {
     @GetMapping("byTag/{tagName}")
     List<GetItemByTagResponse> getItemByTag(@PathVariable String tagName) throws Exception {
         return  getItemByTagOperationProcessor.process(GetItemByTagRequest.builder().tagName(tagName).build());
+    }
+
+    @PostMapping("/purchase")
+    StoragePurchaseResult purchaseResult(@RequestBody StoragePurchaseRequest purchaseRequest) throws Exception {
+            return  purchaseOperationProcessor.process(purchaseRequest);
     }
 
 }

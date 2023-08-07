@@ -30,6 +30,7 @@
         <java.version>17</java.version>
         <revision>0.0.3-SNAPSHOT</revision>
         <zoostore.version>0.0.3-SNAPSHOT</zoostore.version>
+        <bff.version>0.0.3-SNAPSHOT</bff.version>
     </properties>
 
     <dependencies>
@@ -52,13 +53,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
-       <!-- <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>ZooStoreProject</artifactId>
-            <version>${revision}</version>
-            <type>pom</type>
-        </dependency>-->
 
 
         <dependency>

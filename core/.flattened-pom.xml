@@ -31,6 +31,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.example.bffshare</groupId>
+      <artifactId>persistence</artifactId>
+      <version>0.0.3-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.28</version>

@@ -30,6 +30,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.example.bffshare</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${bff.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.example.zoostorage</groupId>
             <artifactId>api</artifactId>
             <version>${zoostore.version}</version>
