@@ -28,4 +28,5 @@ public class Purchase {
     private Map<UUID,Integer> cart;
     @CreationTimestamp
     private Instant dateOfPurchase;
+    private double sumPrice;
 }

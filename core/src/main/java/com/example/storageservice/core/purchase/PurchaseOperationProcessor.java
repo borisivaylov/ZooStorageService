@@ -7,6 +7,7 @@ import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseReque
 import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseResult;
 import com.example.storageservice.persistence.entity.Purchase;
 
+import com.example.storageservice.persistence.entity.Shipment;
 import com.example.storageservice.persistence.repository.PurchaseRepository;
 import com.example.storageservice.persistence.repository.ShipmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PurchaseOperationProcessor implements PurchaseOperation {
 
-    boolean transaction = true;
-
     private final PurchaseRepository purchaseRepository;
     private final BffShareRestExport bffShareRestExport;
     private final ShipmentRepository shipmentRepository;
@@ -29,34 +28,10 @@ public class PurchaseOperationProcessor implements PurchaseOperation {
     public StoragePurchaseResult process(StoragePurchaseRequest operationInput) throws Exception {
 
 
-        Boolean successful = true;
+        Map<UUID,Integer> cartItems= operationInput.getItems();
 
-        //Cart currentCart = operationInput.getCart();
-
-
-      //  Map<UUID,Integer> cartMap = currentCart.getItemMap();
-
-        /*cartMap.entrySet().stream()
-                .allMatch(entry -> {
-                    if( shipmentRepository.findShipmentByItemId(entry.getKey()).getQuantity()<entry.getValue())
-                        successful.set(false);
-
-                    return true;
-                });*/
-
-
-        for (Map.Entry<UUID,Integer> entry: operationInput.getItems().entrySet()) {
-            if( shipmentRepository.findShipmentByItemId(entry.getKey()).getQuantity()<entry.getValue())
-                successful=false;
-        }
-        /*cartMap.forEach((key, value) -> {
-            Shipment shipment = shipmentRepository.findShipmentByItemId(key);
-            if((value>shipment.getQuantity()){
-                return PurchaseResult.builder()
-                        .status("not enough quantity of item" + key )
-                        .build();
-            }
-        });*/
+        boolean successful= cartItems.entrySet().stream()
+                .allMatch( entry -> shipmentRepository.findShipmentByItemId(entry.getKey()).getQuantity() - entry.getValue()>=0);
 
         if (!successful)
         {
@@ -65,11 +40,18 @@ public class PurchaseOperationProcessor implements PurchaseOperation {
                     .build();
         }
 
+        cartItems.forEach((key, value) -> {
+            Shipment current = shipmentRepository.findShipmentByItemId(key);
+            current.setQuantity(current.getQuantity() - value);
+            shipmentRepository.save(current);
+        });
+
 
         Purchase purchase = Purchase.builder()
                 .userId(operationInput.getUserId())
                 .cart(operationInput.getItems())
                 .cartId(operationInput.getCartId())
+                .sumPrice(operationInput.getSumPrice())
                 .build();
 
         purchaseRepository.save(purchase);
