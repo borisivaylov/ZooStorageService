@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.example.storageservice.persistence.entity.Shipment;
 import com.example.storageservice.persistence.repository.ShipmentRepository;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 public class ChangePriceOperationProcessor implements com.example.storageservice.api.Item.changePrice.ChangePriceOperation {
@@ -16,7 +18,8 @@ public class ChangePriceOperationProcessor implements com.example.storageservice
     private final ShipmentRepository shipmentRepository;
 
    public ChangePriceResponse process(ChangePriceRequest changePriceRequest){
-            Shipment shipment = shipmentRepository.findShipmentByItemId(changePriceRequest.getId());
+            Shipment shipment = shipmentRepository.findShipmentByItemId(changePriceRequest.getId())
+                    .orElseThrow(()-> new NoSuchElementException("No such shipment"));
             shipment.setPrice(changePriceRequest.getPrice());
 
             ChangePriceResponse changePriceResponse = ChangePriceResponse.builder()

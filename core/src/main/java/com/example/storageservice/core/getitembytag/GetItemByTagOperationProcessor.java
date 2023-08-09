@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,8 @@ public class GetItemByTagOperationProcessor implements GetItemByTagOperation {
 
         for (GetAllItemsResponse getAllItemsResponse: getAllItemsResponseList) {
 
-            Shipment shipment = shipmentRepository.findShipmentByItemId(getAllItemsResponse.getId());
+            Shipment shipment = shipmentRepository.findShipmentByItemId(getAllItemsResponse.getId())
+                    .orElseThrow(()-> new NoSuchElementException("No such shipment"));;
             getItemByTagResponseList.add(GetItemByTagResponse.builder()
                                                                         .id(shipment.getItemId())
                                                                         .price(shipment.getPrice())

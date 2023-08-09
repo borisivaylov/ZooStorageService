@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -31,7 +32,8 @@ public class PurchaseOperationProcessor implements PurchaseOperation {
         Map<UUID,Integer> cartItems= operationInput.getItems();
 
         boolean successful= cartItems.entrySet().stream()
-                .allMatch( entry -> shipmentRepository.findShipmentByItemId(entry.getKey()).getQuantity() - entry.getValue()>=0);
+                .allMatch( entry -> shipmentRepository.findShipmentByItemId(entry.getKey())
+                        .orElseThrow(()-> new NoSuchElementException("No such shipment")).getQuantity() - entry.getValue()>=0);
 
         if (!successful)
         {
@@ -41,7 +43,7 @@ public class PurchaseOperationProcessor implements PurchaseOperation {
         }
 
         cartItems.forEach((key, value) -> {
-            Shipment current = shipmentRepository.findShipmentByItemId(key);
+            Shipment current = shipmentRepository.findShipmentByItemId(key) .orElseThrow(()-> new NoSuchElementException("No such shipment"));;
             current.setQuantity(current.getQuantity() - value);
             shipmentRepository.save(current);
         });

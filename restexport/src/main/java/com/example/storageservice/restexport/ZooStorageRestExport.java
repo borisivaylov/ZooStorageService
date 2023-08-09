@@ -1,6 +1,8 @@
 package com.example.storageservice.restexport;
 
 import com.example.storageservice.api.Item.getItem.ItemResponse;
+import com.example.storageservice.api.Item.getallitems.GetAllItemsRequest;
+import com.example.storageservice.api.Item.getallitems.GetAllItemsResponse;
 import com.example.storageservice.api.Item.getitembytag.GetItemByTagResponse;
 import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseRequest;
 import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseResult;
@@ -21,4 +23,7 @@ public interface ZooStorageRestExport {
 
     @RequestLine("POST /zooStorage/purchase")
     StoragePurchaseResult purchase(@RequestBody StoragePurchaseRequest purchaseRequest);
+
+    @RequestLine("GET /zooStorage/getAllItemsId/{string}")
+    List<GetAllItemsResponse> getAllIds(@Param String string);
 }

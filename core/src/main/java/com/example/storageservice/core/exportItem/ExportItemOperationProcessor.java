@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.storageservice.persistence.entity.Shipment;
 import com.example.storageservice.persistence.repository.ShipmentRepository;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 public class ExportItemOperationProcessor implements com.example.storageservice.api.Item.export.ExportItemOperation {
@@ -16,7 +18,8 @@ public class ExportItemOperationProcessor implements com.example.storageservice.
 
     public ExportResponse process(ExportRequest exportRequest){
 
-        Shipment shipment = shipmentRepository.findShipmentByItemId(exportRequest.getId());
+        Shipment shipment = shipmentRepository.findShipmentByItemId(exportRequest.getId())
+                .orElseThrow(()-> new NoSuchElementException("No such shipment"));;
         shipment.setQuantity(shipment.getQuantity() - exportRequest.getQuantity());
 
         ExportResponse exportResponse = ExportResponse.builder()
