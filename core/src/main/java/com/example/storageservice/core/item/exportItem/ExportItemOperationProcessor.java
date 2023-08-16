@@ -1,4 +1,4 @@
-package com.example.storageservice.core.exportItem;
+package com.example.storageservice.core.item.exportItem;
 
 
 import com.example.storageservice.api.Item.export.ExportRequest;

@@ -1,4 +1,4 @@
-package com.example.storageservice.core.addItem;
+package com.example.storageservice.core.item.addItem;
 
 
 import com.example.storageservice.api.Item.add.ShipmentRequest;
@@ -18,8 +18,6 @@ public class AddItemOperationProcessor implements com.example.storageservice.api
 
     private final ShipmentRepository shipmentRepository;
     private  final ZooStoreRestExport zooStoreRestExport;
-
-
 
 
     @Override

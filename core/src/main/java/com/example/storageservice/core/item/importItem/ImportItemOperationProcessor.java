@@ -1,4 +1,4 @@
-package com.example.storageservice.core.importItem;
+package com.example.storageservice.core.item.importItem;
 
 
 import com.example.storageservice.api.Item.importItem.ImportItemService;

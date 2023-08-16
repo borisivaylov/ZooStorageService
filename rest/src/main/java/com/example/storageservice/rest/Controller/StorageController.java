@@ -8,6 +8,7 @@ import com.example.storageservice.api.Item.changePrice.ChangePriceRequest;
 import com.example.storageservice.api.Item.changePrice.ChangePriceResponse;
 import com.example.storageservice.api.Item.export.ExportRequest;
 import com.example.storageservice.api.Item.export.ExportResponse;
+import com.example.storageservice.api.Item.getItem.ItemRequest;
 import com.example.storageservice.api.Item.getItem.ItemResponse;
 import com.example.storageservice.api.Item.getallitems.GetAllItemsRequest;
 import com.example.storageservice.api.Item.getallitems.GetAllItemsResponse;
@@ -15,15 +16,19 @@ import com.example.storageservice.api.Item.getitembytag.GetItemByTagRequest;
 import com.example.storageservice.api.Item.getitembytag.GetItemByTagResponse;
 import com.example.storageservice.api.Item.importItem.ImportRequest;
 import com.example.storageservice.api.Item.importItem.ImportResponse;
+import com.example.storageservice.api.catalog.generate.GenerateCatalogInput;
+import com.example.storageservice.api.catalog.generate.GenerateCatalogResult;
 import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseRequest;
 import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseResult;
-import com.example.storageservice.core.addItem.AddItemOperationProcessor;
-import com.example.storageservice.core.changePrice.ChangePriceOperationProcessor;
-import com.example.storageservice.core.exportItem.ExportItemOperationProcessor;
-import com.example.storageservice.core.getItem.GetItemOperationProcessor;
-import com.example.storageservice.core.getallitems.GetAllItemsOperationProcessors;
-import com.example.storageservice.core.getitembytag.GetItemByTagOperationProcessor;
-import com.example.storageservice.core.importItem.ImportItemOperationProcessor;
+import com.example.storageservice.core.catalog.additem.AddCatalogItemOperationProcessor;
+import com.example.storageservice.core.catalog.generate.GenerateCatalogOperationProcessor;
+import com.example.storageservice.core.item.addItem.AddItemOperationProcessor;
+import com.example.storageservice.core.item.changePrice.ChangePriceOperationProcessor;
+import com.example.storageservice.core.item.exportItem.ExportItemOperationProcessor;
+import com.example.storageservice.core.item.getItem.GetItemOperationProcessor;
+import com.example.storageservice.core.item.getallitems.GetAllItemsOperationProcessors;
+import com.example.storageservice.core.item.getitembytag.GetItemByTagOperationProcessor;
+import com.example.storageservice.core.item.importItem.ImportItemOperationProcessor;
 import com.example.storageservice.core.purchase.PurchaseOperationProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +50,8 @@ public class StorageController {
     private final GetItemByTagOperationProcessor getItemByTagOperationProcessor;
     private final PurchaseOperationProcessor purchaseOperationProcessor;
     private  final GetAllItemsOperationProcessors getAllItemsOperationProcessors;
+    //private final AddCatalogItemOperationProcessor addCatalogItemOperationProcessor;
+    private final GenerateCatalogOperationProcessor generateCatalogOperationProcessor;
 
         @PostMapping("/createItem")
     ShipmentResponse addItem(@RequestBody ShipmentRequest shipmentRequest) throws Exception {
@@ -66,7 +73,7 @@ public class StorageController {
     }
     @GetMapping("/{uuid}")
     ItemResponse getItemByItemId(@PathVariable UUID uuid){
-        return  getItemService.process(ShipmentRequest.builder().id(uuid).build());
+        return  getItemService.process(ItemRequest.builder().id(uuid).build());
     }
     @GetMapping("byTag/{tagName}")
     List<GetItemByTagResponse> getItemByTag(@PathVariable String tagName) throws Exception {
@@ -80,6 +87,10 @@ public class StorageController {
     @GetMapping("/getAllItemsId/{string}")
     List<GetAllItemsResponse> getAllIds(@PathVariable String string) throws Exception {
             return getAllItemsOperationProcessors.process(GetAllItemsRequest.builder().testing1(string).build());
+    }
+    @PostMapping("/catalog/generate")
+    GenerateCatalogResult generateCatalog(@RequestBody GenerateCatalogInput generateCatalogInput) throws Exception {
+            return generateCatalogOperationProcessor.process(generateCatalogInput);
     }
 
 

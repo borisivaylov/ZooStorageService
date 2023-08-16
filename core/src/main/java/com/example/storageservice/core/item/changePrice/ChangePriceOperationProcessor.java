@@ -1,4 +1,4 @@
-package com.example.storageservice.core.changePrice;
+package com.example.storageservice.core.item.changePrice;
 
 
 import com.example.storageservice.api.Item.changePrice.ChangePriceRequest;

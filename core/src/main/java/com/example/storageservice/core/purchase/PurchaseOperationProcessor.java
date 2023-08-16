@@ -8,6 +8,7 @@ import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseResul
 import com.example.storageservice.persistence.entity.Purchase;
 
 import com.example.storageservice.persistence.entity.Shipment;
+import com.example.storageservice.persistence.repository.OnSaleItemRepository;
 import com.example.storageservice.persistence.repository.PurchaseRepository;
 import com.example.storageservice.persistence.repository.ShipmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class PurchaseOperationProcessor implements PurchaseOperation {
     private final PurchaseRepository purchaseRepository;
     private final BffShareRestExport bffShareRestExport;
     private final ShipmentRepository shipmentRepository;
+    private final OnSaleItemRepository onSaleItemRepository;
 
     @Override
     public StoragePurchaseResult process(StoragePurchaseRequest operationInput) throws Exception {
