@@ -5,12 +5,13 @@ import lombok.*;
 
 import java.util.UUID;
 
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ViewCatalogItem {
+public class GetCatalogItem {
 
     @JsonProperty
     private UUID itemId;
@@ -19,5 +20,9 @@ public class ViewCatalogItem {
     @JsonProperty
     private String description;
     @JsonProperty
-    private double price;
+    private double actualPrice;
+    @JsonProperty
+    private Integer discount;
+    @JsonProperty
+    private double onSalePrice;
 }

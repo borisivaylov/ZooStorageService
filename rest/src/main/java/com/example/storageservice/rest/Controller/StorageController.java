@@ -50,8 +50,7 @@ public class StorageController {
     private final GetItemByTagOperationProcessor getItemByTagOperationProcessor;
     private final PurchaseOperationProcessor purchaseOperationProcessor;
     private  final GetAllItemsOperationProcessors getAllItemsOperationProcessors;
-    //private final AddCatalogItemOperationProcessor addCatalogItemOperationProcessor;
-    private final GenerateCatalogOperationProcessor generateCatalogOperationProcessor;
+
 
         @PostMapping("/createItem")
     ShipmentResponse addItem(@RequestBody ShipmentRequest shipmentRequest) throws Exception {
@@ -88,10 +87,5 @@ public class StorageController {
     List<GetAllItemsResponse> getAllIds(@PathVariable String string) throws Exception {
             return getAllItemsOperationProcessors.process(GetAllItemsRequest.builder().testing1(string).build());
     }
-    @PostMapping("/catalog/generate")
-    GenerateCatalogResult generateCatalog(@RequestBody GenerateCatalogInput generateCatalogInput) throws Exception {
-            return generateCatalogOperationProcessor.process(generateCatalogInput);
-    }
-
 
 }
