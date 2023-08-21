@@ -21,6 +21,6 @@ public class BffRestClientFactory {
         return Feign.builder()
                 .encoder(new JacksonEncoder(objectMapper))
                 .decoder(new JacksonDecoder(objectMapper))
-                .target(BffShareRestExport.class, "http://localhost:8083");
+                .target(BffShareRestExport.class, "http://172.29.128.1:8083");
     }
 }

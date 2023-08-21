@@ -27,7 +27,7 @@ public class AddItemOperationProcessor implements com.example.storageservice.api
             zooStoreRestExport.getItemById(shipmentRequest.getId().toString());
         } catch (Exception e)
         {
-            throw new Exception("item not found");
+            throw new Exception("item not found: "+e.getMessage());
         }
 
         Shipment shipment = Shipment.builder().itemId(shipmentRequest.getId()).

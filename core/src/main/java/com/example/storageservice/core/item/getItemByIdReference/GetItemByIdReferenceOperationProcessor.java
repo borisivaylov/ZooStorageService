@@ -23,12 +23,6 @@ public class GetItemByIdReferenceOperationProcessor implements GetItemByIdRefere
 
         Shipment shipment = shipmentRepository.getReferenceById(getItemByIdReferenceRequest.getItemId());
 
-        if (onSaleItemRepository.existsById(shipment.getItemId()))
-        {
-            double onSalePercent = onSaleItemRepository.findById(shipment.getItemId())
-                    .orElseThrow(()-> new NoSuchElementException("No such item.")).getDiscount();
-            shipment.setPrice(shipment.getPrice() * (1-onSalePercent/100));
-        }
 
         return GetItemByIdReferenceResponse.builder()
                 .ItemId(shipment.getItemId())

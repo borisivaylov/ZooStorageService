@@ -2,9 +2,12 @@ package com.example.storageservice.core.purchase;
 
 import com.example.bffshare.persistence.entity.Cart;
 import com.example.bffshare.restexport.BffShareRestExport;
+import com.example.storageservice.api.Item.getItem.ItemRequest;
+import com.example.storageservice.api.Item.getItem.ItemResponse;
 import com.example.storageservice.api.purchase.cartpurchase.PurchaseOperation;
 import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseRequest;
 import com.example.storageservice.api.purchase.cartpurchase.StoragePurchaseResult;
+import com.example.storageservice.core.item.getItem.GetItemOperationProcessor;
 import com.example.storageservice.persistence.entity.Purchase;
 
 import com.example.storageservice.persistence.entity.Shipment;
@@ -23,9 +26,9 @@ import java.util.UUID;
 public class PurchaseOperationProcessor implements PurchaseOperation {
 
     private final PurchaseRepository purchaseRepository;
-    private final BffShareRestExport bffShareRestExport;
     private final ShipmentRepository shipmentRepository;
     private final OnSaleItemRepository onSaleItemRepository;
+    private final GetItemOperationProcessor getItemOperationProcessor;
 
     @Override
     public StoragePurchaseResult process(StoragePurchaseRequest operationInput) throws Exception {
@@ -44,10 +47,25 @@ public class PurchaseOperationProcessor implements PurchaseOperation {
                     .build();
         }
 
+        operationInput.setSumPrice(0);
+
         cartItems.forEach((key, value) -> {
+            boolean onSale = false;
             Shipment current = shipmentRepository.findShipmentByItemId(key) .orElseThrow(()-> new NoSuchElementException("No such shipment"));;
             current.setQuantity(current.getQuantity() - value);
+
+            if (onSaleItemRepository.existsById(current.getItemId())){
+                ItemResponse onSaleItem = getItemOperationProcessor.process(ItemRequest.builder().id(current.getItemId()).build());
+                operationInput.setSumPrice(operationInput.getSumPrice() + onSaleItem.getPrice());
+                onSale=true;
+            }
+
+            if (!onSale){
+                operationInput.setSumPrice(operationInput.getSumPrice() + current.getPrice());
+            }
+
             shipmentRepository.save(current);
+
         });
 
 

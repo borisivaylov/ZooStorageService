@@ -46,7 +46,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.example.storageservice.com.example.storageservice.rest.ZooStorageServiceApplication</mainClass>
+                    <mainClass>com.example.storageservice.rest.ZooStorageServiceApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
