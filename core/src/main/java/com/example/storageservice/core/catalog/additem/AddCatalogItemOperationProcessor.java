@@ -26,6 +26,7 @@ public class AddCatalogItemOperationProcessor implements AddCatalogItemOperation
         operationInput.getListOfItems().remove(index);
 
         return CatalogItemResult.builder()
+                //.catalogId(operationInput.getCatalogId())
                 .itemId(catalogItemId.getItemId())
                 .discount(new Random().nextInt(31) + 5)
                 .build();

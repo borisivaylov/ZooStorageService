@@ -1,4 +1,4 @@
-package com.example.storageservice.api.catalog.additem;
+package com.example.storageservice.api.catalog.checkcatalogstatus;
 
 import com.example.storageservice.api.base.OperationResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,11 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CatalogItemResult implements OperationResult {
-
-
+public class CheckCatalogStatusResult implements OperationResult {
     @JsonProperty
-    private UUID itemId;
-    @JsonProperty
-    private Integer discount;
+    private boolean catalogStatus;
 }

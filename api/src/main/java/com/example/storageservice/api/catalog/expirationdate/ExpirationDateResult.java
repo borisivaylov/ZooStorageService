@@ -1,21 +1,16 @@
-package com.example.storageservice.api.catalog.additem;
+package com.example.storageservice.api.catalog.expirationdate;
 
 import com.example.storageservice.api.base.OperationResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.util.UUID;
-
+import java.sql.Timestamp;
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CatalogItemResult implements OperationResult {
-
-
+public class ExpirationDateResult implements OperationResult {
     @JsonProperty
-    private UUID itemId;
-    @JsonProperty
-    private Integer discount;
+    Timestamp dateOfExpiration;
 }

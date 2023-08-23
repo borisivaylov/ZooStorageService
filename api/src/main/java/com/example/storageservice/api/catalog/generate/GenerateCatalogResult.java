@@ -4,6 +4,7 @@ import com.example.storageservice.api.base.OperationResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -20,5 +21,7 @@ public class GenerateCatalogResult implements OperationResult {
     @JsonProperty
     private List<UUID> items;
     @JsonProperty
-    private Date timestamp;
+    private Timestamp dateOfCreation;
+    @JsonProperty
+    private Timestamp dateOfExpiration;
 }

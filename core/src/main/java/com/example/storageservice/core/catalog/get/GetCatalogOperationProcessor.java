@@ -2,10 +2,12 @@ package com.example.storageservice.core.catalog.get;
 
 import com.example.storageservice.api.Item.getItem.ItemRequest;
 import com.example.storageservice.api.Item.getItem.ItemResponse;
+import com.example.storageservice.api.catalog.checkcatalogstatus.CheckCatalogStatusInput;
 import com.example.storageservice.api.catalog.view.GetCatalogInput;
 import com.example.storageservice.api.catalog.view.GetCatalogItem;
 import com.example.storageservice.api.catalog.view.GetCatalogOperation;
 import com.example.storageservice.api.catalog.view.GetCatalogResult;
+import com.example.storageservice.core.catalog.checkstatus.CheckStatusOperationProcessor;
 import com.example.storageservice.core.item.getItem.GetItemOperationProcessor;
 import com.example.storageservice.persistence.entity.Catalog;
 import com.example.storageservice.persistence.repository.CatalogRepository;
@@ -29,6 +31,7 @@ public class GetCatalogOperationProcessor implements GetCatalogOperation {
     private final GetItemOperationProcessor getItemOperationProcessor;
     private final OnSaleItemRepository onSaleItemRepository;
     private final ShipmentRepository shipmentRepository;
+    private final CheckStatusOperationProcessor checkStatusOperationProcessor;
     @Override
     public GetCatalogResult process(GetCatalogInput operationInput) throws Exception {
 
@@ -58,10 +61,16 @@ public class GetCatalogOperationProcessor implements GetCatalogOperation {
             viewCatalogItemList.add(viewCatalogItem);
         });
 
+
+        checkStatusOperationProcessor.process(CheckCatalogStatusInput.builder()
+                .catalogId(currentCatalog.getCatalogId()).build());
+
         return GetCatalogResult.builder()
                 .catalogId(currentCatalog.getCatalogId())
                 .catalogItems(viewCatalogItemList)
                 .dateOfCreation(currentCatalog.getDateOfCreation())
+                .dateOfExpiration(currentCatalog.getDateOfExpiration())
+                .status(currentCatalog.isExpired())
                 .build();
     }
 }

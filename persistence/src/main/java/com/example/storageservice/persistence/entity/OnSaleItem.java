@@ -13,6 +13,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "OnSaleItems")
 public class OnSaleItem {
+    private UUID catalogId;
     @Id
     private UUID itemId;
     private Integer discount;

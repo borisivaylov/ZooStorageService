@@ -25,6 +25,9 @@ public class Catalog {
     @ElementCollection
     private List<UUID> items;
     @CreationTimestamp
-    private Date dateOfCreation;
+    private Timestamp dateOfCreation;
+    private Timestamp dateOfExpiration;
+    private boolean expired;
+
 
 }

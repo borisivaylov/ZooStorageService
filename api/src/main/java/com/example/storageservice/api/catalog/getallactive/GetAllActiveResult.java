@@ -1,6 +1,7 @@
-package com.example.storageservice.api.catalog.view;
+package com.example.storageservice.api.catalog.getallactive;
 
 import com.example.storageservice.api.base.OperationResult;
+import com.example.storageservice.api.catalog.view.GetCatalogItem;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -14,11 +15,12 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetCatalogResult implements OperationResult {
+public class GetAllActiveResult implements OperationResult {
+
     @JsonProperty
     private UUID catalogId;
     @JsonProperty
-    private List<GetCatalogItem> catalogItems = new ArrayList<>();
+    private List<UUID> catalogItems = new ArrayList<>();
     @JsonProperty
     private Date dateOfCreation;
     @JsonProperty
@@ -26,3 +28,4 @@ public class GetCatalogResult implements OperationResult {
     @JsonProperty
     private boolean status;
 }
+

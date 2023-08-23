@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface OnSaleItemRepository extends JpaRepository<OnSaleItem, UUID> {
 
     Optional<OnSaleItem> findByItemId (UUID itemId);
+
+    Optional<OnSaleItem> findByItemIdAndCatalogId(UUID itemId, UUID catalogId);
 }

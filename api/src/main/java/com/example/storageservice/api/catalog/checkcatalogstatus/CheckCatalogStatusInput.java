@@ -1,11 +1,9 @@
-package com.example.storageservice.api.catalog.additem;
+package com.example.storageservice.api.catalog.checkcatalogstatus;
 
 import com.example.storageservice.api.base.OperationInput;
-import com.example.storageservice.persistence.entity.Shipment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -13,9 +11,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CatalogItemInput implements OperationInput {
-
+public class CheckCatalogStatusInput implements OperationInput {
 
     @JsonProperty
-    private List<Shipment> ListOfItems;
+    private UUID catalogId;
 }
