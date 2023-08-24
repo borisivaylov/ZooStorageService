@@ -31,7 +31,7 @@ public class PurchaseOperationProcessor implements PurchaseOperation {
     private final GetItemOperationProcessor getItemOperationProcessor;
 
     @Override
-    public StoragePurchaseResult process(StoragePurchaseRequest operationInput) throws Exception {
+    public StoragePurchaseResult process(StoragePurchaseRequest operationInput)  {
 
 
         Map<UUID,Integer> cartItems= operationInput.getItems();

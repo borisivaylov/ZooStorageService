@@ -20,7 +20,7 @@ public class GetAllItemsOperationProcessors implements GetAllItemsOperation {
     private final ShipmentRepository shipmentRepository;
     private final OnSaleItemRepository onSaleItemRepository;
     @Override
-    public List<GetAllItemsResponse> process(GetAllItemsRequest operationInput) throws Exception {
+    public List<GetAllItemsResponse> process(GetAllItemsRequest operationInput)  {
 
         List<Shipment> shipments = shipmentRepository.findAll();
         List<GetAllItemsResponse> getAllItemsResponseList = new ArrayList<>();

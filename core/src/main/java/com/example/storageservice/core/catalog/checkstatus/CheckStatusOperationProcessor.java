@@ -17,7 +17,7 @@ public class CheckStatusOperationProcessor implements CheckCatalogStatusOperatio
 
    private  final  CatalogRepository catalogRepository;
     @Override
-    public CheckCatalogStatusResult process(CheckCatalogStatusInput operationInput) throws Exception {
+    public CheckCatalogStatusResult process(CheckCatalogStatusInput operationInput) {
 
         Catalog currentCatalog = catalogRepository.findById(operationInput.getCatalogId())
                 .orElseThrow(()-> new NoSuchElementException("No such catalog"));

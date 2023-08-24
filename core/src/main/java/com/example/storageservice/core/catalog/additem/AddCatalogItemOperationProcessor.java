@@ -19,14 +19,13 @@ import java.util.UUID;
 public class AddCatalogItemOperationProcessor implements AddCatalogItemOperation {
 
     @Override
-    public CatalogItemResult process(CatalogItemInput operationInput) throws Exception {
+    public CatalogItemResult process(CatalogItemInput operationInput) {
 
         int index = new Random().nextInt(operationInput.getListOfItems().size());
         Shipment catalogItemId = operationInput.getListOfItems().get(index);
         operationInput.getListOfItems().remove(index);
 
         return CatalogItemResult.builder()
-                //.catalogId(operationInput.getCatalogId())
                 .itemId(catalogItemId.getItemId())
                 .discount(new Random().nextInt(31) + 5)
                 .build();

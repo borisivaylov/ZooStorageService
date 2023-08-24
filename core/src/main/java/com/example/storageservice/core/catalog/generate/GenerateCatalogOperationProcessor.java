@@ -31,7 +31,7 @@ public class GenerateCatalogOperationProcessor implements GenerateCatalogOperati
     private final ExpirationDateOperationProcessor expirationDateOperationProcessor;
 
     @Override
-    public GenerateCatalogResult process(GenerateCatalogInput operationInput) throws Exception {
+    public GenerateCatalogResult process(GenerateCatalogInput operationInput) {
 
         List<Shipment> items = shipmentRepository.findAll();
         List<UUID> onSaleItemIds = new ArrayList<>();

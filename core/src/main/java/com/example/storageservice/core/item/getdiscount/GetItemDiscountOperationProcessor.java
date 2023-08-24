@@ -24,7 +24,7 @@ public class GetItemDiscountOperationProcessor implements GetDiscountOperation {
     private final GetAllActiveCatalogsOperationProcessor getAllActiveCatalogsOperationProcessor;
 
     @Override
-    public GetDiscountResult process(GetDiscountInput operationInput) throws Exception {
+    public GetDiscountResult process(GetDiscountInput operationInput) {
 
         List<GetAllActiveResult> getAllActiveResultList = getAllActiveCatalogsOperationProcessor
                                                                 .process(GetAllActiveInput.builder().build());

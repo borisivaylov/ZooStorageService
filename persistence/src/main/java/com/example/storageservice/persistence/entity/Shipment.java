@@ -19,6 +19,6 @@ public class Shipment {
     private UUID shipmentId;
     private UUID itemId;
     private long quantity;
-    private double price;
+    private Double price;
 
 }

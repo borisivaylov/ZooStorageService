@@ -21,14 +21,10 @@ public class AddItemOperationProcessor implements com.example.storageservice.api
 
 
     @Override
-    public ShipmentResponse process(ShipmentRequest shipmentRequest) throws Exception {
+    public ShipmentResponse process(ShipmentRequest shipmentRequest) {
 
-        try {
-            zooStoreRestExport.getItemById(shipmentRequest.getId().toString());
-        } catch (Exception e)
-        {
-            throw new Exception("item not found: "+e.getMessage());
-        }
+
+        zooStoreRestExport.getItemById(shipmentRequest.getId().toString());
 
         Shipment shipment = Shipment.builder().itemId(shipmentRequest.getId()).
                 price(shipmentRequest.getPrice()).

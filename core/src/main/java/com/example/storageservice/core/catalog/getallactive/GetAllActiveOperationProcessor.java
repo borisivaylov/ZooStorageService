@@ -20,20 +20,16 @@ public class GetAllActiveOperationProcessor implements GetAllActiveCatalogsOpera
     private final CatalogRepository catalogRepository;
     private final CheckStatusOperationProcessor checkStatusOperationProcessor;
     @Override
-    public List<GetAllActiveResult> process(GetAllActiveInput operationInput) throws Exception {
+    public List<GetAllActiveResult> process(GetAllActiveInput operationInput){
 
         List<Catalog> catalogList = catalogRepository.findAllByExpired(false);
         List<GetAllActiveResult> getAllActiveResultList =new ArrayList<>();
 
         catalogList.forEach(catalog -> {
 
-            try {
                 checkStatusOperationProcessor.process(CheckCatalogStatusInput.builder()
                                 .catalogId(catalog.getCatalogId())
                         .build());
-            } catch (Exception e ) {
-                throw new RuntimeException(e.getMessage());
-            }
 
             getAllActiveResultList.add(GetAllActiveResult.builder()
                             .catalogId(catalog.getCatalogId())

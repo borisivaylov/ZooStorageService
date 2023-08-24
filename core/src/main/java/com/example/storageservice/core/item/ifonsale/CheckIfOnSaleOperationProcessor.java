@@ -22,7 +22,7 @@ public class CheckIfOnSaleOperationProcessor implements CheckIfOnSaleOperation {
     private final GetAllActiveCatalogsOperationProcessor getAllActiveCatalogsOperationProcessor;
 
     @Override
-    public CheckIfOnSaleResult process(CheckIfOnSaleInput operationInput) throws Exception {
+    public CheckIfOnSaleResult process(CheckIfOnSaleInput operationInput){
 
         GetAllActiveInput getAllActiveInput;
         List<GetAllActiveResult> getAllActiveResultList = getAllActiveCatalogsOperationProcessor.process(GetAllActiveInput.builder().build());

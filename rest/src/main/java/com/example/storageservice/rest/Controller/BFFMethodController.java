@@ -24,7 +24,7 @@ public class BFFMethodController {
     private final GetItemDiscountOperationProcessor getItemDiscountOperationProcessor;
     private final CheckIfOnSaleOperationProcessor checkIfOnSaleOperationProcessor;
 
-    @GetMapping("/{itemId}")
+    @PostMapping ("/{itemId}")
         GetItemByIdReferenceResponse getItemByIdReference(@PathVariable UUID itemId){
         return getItemByIdReferenceOperationProcessor.process(GetItemByIdReferenceRequest.builder().itemId(itemId).build());
     }

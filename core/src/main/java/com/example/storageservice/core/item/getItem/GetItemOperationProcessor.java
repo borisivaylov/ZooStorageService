@@ -1,9 +1,11 @@
 package com.example.storageservice.core.item.getItem;
 
 
-import com.example.storageservice.api.Item.add.ShipmentRequest;
+import com.example.storageservice.api.Item.checkifonsale.CheckIfOnSaleInput;
+import com.example.storageservice.api.Item.getItem.GetItemOperation;
 import com.example.storageservice.api.Item.getItem.ItemRequest;
 import com.example.storageservice.api.Item.getItem.ItemResponse;
+import com.example.storageservice.core.item.ifonsale.CheckIfOnSaleOperationProcessor;
 import com.example.storageservice.persistence.repository.OnSaleItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,17 +16,19 @@ import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
-public class GetItemOperationProcessor implements com.example.storageservice.api.Item.getItem.GetItemOperation {
+public class GetItemOperationProcessor implements GetItemOperation {
 
     private final ShipmentRepository shipmentRepository;
     private final OnSaleItemRepository onSaleItemRepository;
+    private final CheckIfOnSaleOperationProcessor checkIfOnSaleOperationProcessor;
 
-    public ItemResponse process(ItemRequest itemRequest){
+    public ItemResponse process(ItemRequest itemRequest) {
 
         Shipment shipment = shipmentRepository.findShipmentByItemId(itemRequest.getId())
                 .orElseThrow(()-> new NoSuchElementException("No such shipment"));
+        boolean onSale = checkIfOnSaleOperationProcessor.process(CheckIfOnSaleInput.builder().itemId(shipment.getItemId()).build()).isOnSale();
 
-        if (onSaleItemRepository.existsById(shipment.getItemId()))
+        if(onSale)
         {
             double onSalePercent = onSaleItemRepository.findById(shipment.getItemId())
                     .orElseThrow(()-> new NoSuchElementException("No such item.")).getDiscount();
@@ -37,5 +41,4 @@ public class GetItemOperationProcessor implements com.example.storageservice.api
                 .quantity(shipment.getQuantity())
                 .build();
     }
-
 }

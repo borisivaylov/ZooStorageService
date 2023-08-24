@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -33,29 +34,29 @@ public class GetCatalogOperationProcessor implements GetCatalogOperation {
     private final ShipmentRepository shipmentRepository;
     private final CheckStatusOperationProcessor checkStatusOperationProcessor;
     @Override
-    public GetCatalogResult process(GetCatalogInput operationInput) throws Exception {
+    public GetCatalogResult process(GetCatalogInput operationInput)  {
 
         Catalog currentCatalog = catalogRepository.findById(operationInput.getCatalogId())
                 .orElseThrow(() -> new NoSuchElementException("No such catalog"));
         List<GetCatalogItem> viewCatalogItemList = new ArrayList<>();
 
-
         currentCatalog.getItems().forEach(item ->{
 
             double actualPrice = shipmentRepository.findShipmentByItemId(item)
                     .orElseThrow(()-> new NoSuchElementException("No such item.")).getPrice();
+            Integer discount = onSaleItemRepository.findByItemId(item)
+                    .orElseThrow(()-> new NoSuchElementException("There is no such item in the catalog")).getDiscount();
 
             GetItemResponse currentItem =zooStoreRestExport.getItemById(item.toString());
-            ItemResponse itemResponseStorage = getItemOperationProcessor.process(ItemRequest.builder().id(item).build());
+
 
             GetCatalogItem viewCatalogItem = GetCatalogItem.builder()
                                     .itemId(currentItem.getId())
                                     .title(currentItem.getTitle())
                                     .description(currentItem.getDescription())
                                     .actualPrice(actualPrice)
-                                    .discount(onSaleItemRepository.findByItemId(item)
-                                            .orElseThrow(()-> new NoSuchElementException("There is no such item in the catalog")).getDiscount())
-                                    .onSalePrice(itemResponseStorage.getPrice())
+                                    .discount(discount)
+                                    .onSalePrice(actualPrice*(1-discount/100))
                                     .build();
 
             viewCatalogItemList.add(viewCatalogItem);

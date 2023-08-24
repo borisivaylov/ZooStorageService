@@ -1,8 +1,12 @@
 package com.example.storageservice.core.item.getitembytag;
 
+import com.example.storageservice.api.Item.checkifonsale.CheckIfOnSaleInput;
+import com.example.storageservice.api.Item.getdiscount.GetDiscountInput;
 import com.example.storageservice.api.Item.getitembytag.GetItemByTagOperation;
 import com.example.storageservice.api.Item.getitembytag.GetItemByTagRequest;
 import com.example.storageservice.api.Item.getitembytag.GetItemByTagResponse;
+import com.example.storageservice.core.item.getdiscount.GetItemDiscountOperationProcessor;
+import com.example.storageservice.core.item.ifonsale.CheckIfOnSaleOperationProcessor;
 import com.example.storageservice.persistence.entity.Shipment;
 import com.example.storageservice.persistence.repository.OnSaleItemRepository;
 import com.example.storageservice.persistence.repository.ShipmentRepository;
@@ -22,14 +26,18 @@ public class GetItemByTagOperationProcessor implements GetItemByTagOperation {
     private final ShipmentRepository shipmentRepository;
     private  final ZooStoreRestExport zooStoreRestExport;
     private final OnSaleItemRepository onSaleItemRepository;
+    private final CheckIfOnSaleOperationProcessor checkIfOnSaleOperationProcessor;
+    private  final GetItemDiscountOperationProcessor getItemDiscountOperationProcessor;
     @Override
-    public List<GetItemByTagResponse> process(GetItemByTagRequest getItemByTagRequest) throws Exception {
+    public List<GetItemByTagResponse> process(GetItemByTagRequest getItemByTagRequest) {
 
-        if (zooStoreRestExport.getItemsByTag(getItemByTagRequest.getTagName())==null){
-            throw new Exception("No items found");
+        List<GetAllItemsResponse> getAllItemsResponseList = zooStoreRestExport.getItemsByTag(getItemByTagRequest.getTagName());
+
+        if (getAllItemsResponseList.isEmpty()) {
+            throw new NoSuchElementException("There are no such items");
         }
 
-        List<GetAllItemsResponse> getAllItemsResponseList=zooStoreRestExport.getItemsByTag(getItemByTagRequest.getTagName());
+        //List<GetAllItemsResponse> getAllItemsResponseList=zooStoreRestExport.getItemsByTag(getItemByTagRequest.getTagName());
         List<GetItemByTagResponse> getItemByTagResponseList = new ArrayList<GetItemByTagResponse>();
 
         for (GetAllItemsResponse getAllItemsResponse: getAllItemsResponseList) {
@@ -37,11 +45,11 @@ public class GetItemByTagOperationProcessor implements GetItemByTagOperation {
             Shipment shipment = shipmentRepository.findShipmentByItemId(getAllItemsResponse.getId())
                     .orElseThrow(()-> new NoSuchElementException("No such shipment"));
 
-            if (onSaleItemRepository.existsById(shipment.getItemId()))
-            {
-                double onSalePercent = onSaleItemRepository.findById(shipment.getItemId())
-                        .orElseThrow(()-> new NoSuchElementException("No such item.")).getDiscount();
-                shipment.setPrice(shipment.getPrice() * (1-onSalePercent/100));
+            if (checkIfOnSaleOperationProcessor.process(CheckIfOnSaleInput.builder()
+                    .itemId(shipment.getItemId()).build()).isOnSale()){
+                Integer discount = getItemDiscountOperationProcessor.process(GetDiscountInput.builder().itemId(shipment.getItemId()).build()).getDiscount();
+                Double price = shipment.getPrice()*(1-discount/100);
+                shipment.setPrice(price);
             }
 
             getItemByTagResponseList.add(GetItemByTagResponse.builder()

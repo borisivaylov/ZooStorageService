@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ExpirationDateOperationProcessor implements ExpirationDateOperation {
     @Override
-    public ExpirationDateResult process(ExpirationDateInput operationInput) throws Exception {
+    public ExpirationDateResult process(ExpirationDateInput operationInput) {
 
         Timestamp currentTime = operationInput.getDateOfCreation();
 
