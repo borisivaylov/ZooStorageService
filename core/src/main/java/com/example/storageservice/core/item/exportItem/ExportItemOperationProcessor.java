@@ -10,6 +10,8 @@ import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 import java.util.NoSuchElementException;
 
+// Reduces an item quantity by given id
+
 @Service
 @RequiredArgsConstructor
 public class ExportItemOperationProcessor implements com.example.storageservice.api.Item.export.ExportItemOperation {

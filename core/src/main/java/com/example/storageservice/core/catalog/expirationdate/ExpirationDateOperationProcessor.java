@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+// Sets the expiration date of a catalog
+
 @Service
 @RequiredArgsConstructor
 public class ExpirationDateOperationProcessor implements ExpirationDateOperation {

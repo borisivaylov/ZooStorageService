@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
+// Returns the status of an item (if it is on sale in active catalog or not)
+
 @RequiredArgsConstructor
 @Service
 public class CheckIfOnSaleOperationProcessor implements CheckIfOnSaleOperation {

@@ -4,15 +4,12 @@ import com.example.storageservice.api.catalog.additem.AddCatalogItemOperation;
 import com.example.storageservice.api.catalog.additem.CatalogItemInput;
 import com.example.storageservice.api.catalog.additem.CatalogItemResult;
 import com.example.storageservice.persistence.entity.Shipment;
-import com.example.storageservice.persistence.repository.CatalogRepository;
-import com.example.storageservice.persistence.repository.ShipmentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.Random;
-import java.util.UUID;
+
+// Collects all items from the storage items table and selects 1 at random.
+// After an item is selected it gets an discount parameter from 5 to 30 %
 
 @Service
 @RequiredArgsConstructor

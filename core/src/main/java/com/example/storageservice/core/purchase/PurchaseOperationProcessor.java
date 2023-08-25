@@ -21,6 +21,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
+ /* Receives a request from bff, and executes the purchase,
+    saves it in the purchases table and returns status to the bff
+    if the operation was a success or not */
+
 @Service
 @RequiredArgsConstructor
 public class PurchaseOperationProcessor implements PurchaseOperation {

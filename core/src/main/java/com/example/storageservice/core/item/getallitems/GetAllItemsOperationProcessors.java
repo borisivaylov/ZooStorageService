@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+// Returns a list of all items  with updated prices if there are items on sale
+
 @Service
 @RequiredArgsConstructor
 public class GetAllItemsOperationProcessors implements GetAllItemsOperation {
@@ -25,7 +27,7 @@ public class GetAllItemsOperationProcessors implements GetAllItemsOperation {
         List<Shipment> shipments = shipmentRepository.findAll();
         List<GetAllItemsResponse> getAllItemsResponseList = new ArrayList<>();
 
-        shipments.stream().forEach(shipment ->{
+        shipments.forEach(shipment ->{
 
             if (onSaleItemRepository.existsById(shipment.getItemId()))
             {

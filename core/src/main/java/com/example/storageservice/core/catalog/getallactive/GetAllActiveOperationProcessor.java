@@ -1,10 +1,15 @@
 package com.example.storageservice.core.catalog.getallactive;
 
+import com.example.storageservice.api.catalog.additem.CatalogItemInput;
+import com.example.storageservice.api.catalog.autogenerate.AutoGenerateInput;
 import com.example.storageservice.api.catalog.checkcatalogstatus.CheckCatalogStatusInput;
+import com.example.storageservice.api.catalog.generate.GenerateCatalogInput;
 import com.example.storageservice.api.catalog.getallactive.GetAllActiveCatalogsOperationProcessor;
 import com.example.storageservice.api.catalog.getallactive.GetAllActiveInput;
 import com.example.storageservice.api.catalog.getallactive.GetAllActiveResult;
+import com.example.storageservice.core.catalog.autogenerate.CatalogAutoGenerationOperationProcessor;
 import com.example.storageservice.core.catalog.checkstatus.CheckStatusOperationProcessor;
+import com.example.storageservice.core.catalog.generate.GenerateCatalogOperationProcessor;
 import com.example.storageservice.persistence.entity.Catalog;
 import com.example.storageservice.persistence.repository.CatalogRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +18,17 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+// Returns a list of all active catalogs
+
+
 @Service
 @RequiredArgsConstructor
 public class GetAllActiveOperationProcessor implements GetAllActiveCatalogsOperationProcessor {
 
     private final CatalogRepository catalogRepository;
     private final CheckStatusOperationProcessor checkStatusOperationProcessor;
+    private final CatalogAutoGenerationOperationProcessor catalogAutoGenerationOperationProcessor;
+
     @Override
     public List<GetAllActiveResult> process(GetAllActiveInput operationInput){
 
@@ -27,9 +37,9 @@ public class GetAllActiveOperationProcessor implements GetAllActiveCatalogsOpera
 
         catalogList.forEach(catalog -> {
 
-                checkStatusOperationProcessor.process(CheckCatalogStatusInput.builder()
-                                .catalogId(catalog.getCatalogId())
-                        .build());
+            checkStatusOperationProcessor.process(CheckCatalogStatusInput.builder()
+                            .catalogId(catalog.getCatalogId())
+                            .build());
 
             getAllActiveResultList.add(GetAllActiveResult.builder()
                             .catalogId(catalog.getCatalogId())
@@ -37,9 +47,8 @@ public class GetAllActiveOperationProcessor implements GetAllActiveCatalogsOpera
                             .dateOfCreation(catalog.getDateOfCreation())
                             .dateOfExpiration(catalog.getDateOfExpiration())
                             .status(catalog.isExpired())
-                    .build());
+                            .build());
         });
-
 
         return getAllActiveResultList;
     }

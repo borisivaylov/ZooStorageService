@@ -17,6 +17,8 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
+// Returns the discount percent of an item from an active catalog
+
 @RequiredArgsConstructor
 @Service
 public class GetItemDiscountOperationProcessor implements GetDiscountOperation {

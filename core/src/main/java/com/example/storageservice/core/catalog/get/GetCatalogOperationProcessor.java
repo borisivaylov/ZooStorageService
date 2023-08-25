@@ -1,7 +1,5 @@
 package com.example.storageservice.core.catalog.get;
 
-import com.example.storageservice.api.Item.getItem.ItemRequest;
-import com.example.storageservice.api.Item.getItem.ItemResponse;
 import com.example.storageservice.api.catalog.checkcatalogstatus.CheckCatalogStatusInput;
 import com.example.storageservice.api.catalog.view.GetCatalogInput;
 import com.example.storageservice.api.catalog.view.GetCatalogItem;
@@ -21,7 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
+
+ // Display all available information about a catalog by id
 
 @Service
 @RequiredArgsConstructor
@@ -67,11 +66,11 @@ public class GetCatalogOperationProcessor implements GetCatalogOperation {
                 .catalogId(currentCatalog.getCatalogId()).build());
 
         return GetCatalogResult.builder()
-                .catalogId(currentCatalog.getCatalogId())
-                .catalogItems(viewCatalogItemList)
-                .dateOfCreation(currentCatalog.getDateOfCreation())
-                .dateOfExpiration(currentCatalog.getDateOfExpiration())
-                .status(currentCatalog.isExpired())
-                .build();
+                                    .catalogId(currentCatalog.getCatalogId())
+                                    .catalogItems(viewCatalogItemList)
+                                    .dateOfCreation(currentCatalog.getDateOfCreation())
+                                    .dateOfExpiration(currentCatalog.getDateOfExpiration())
+                                    .status(currentCatalog.isExpired())
+                                    .build();
     }
 }

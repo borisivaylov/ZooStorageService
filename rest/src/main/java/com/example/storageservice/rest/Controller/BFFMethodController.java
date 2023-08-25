@@ -9,7 +9,6 @@ import com.example.storageservice.api.Item.getdiscount.GetDiscountResult;
 import com.example.storageservice.core.item.getItemByIdReference.GetItemByIdReferenceOperationProcessor;
 import com.example.storageservice.core.item.getdiscount.GetItemDiscountOperationProcessor;
 import com.example.storageservice.core.item.ifonsale.CheckIfOnSaleOperationProcessor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

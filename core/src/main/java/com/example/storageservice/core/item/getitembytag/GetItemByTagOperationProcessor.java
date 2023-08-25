@@ -19,13 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+// Returns information about an item (price updated if on sale) found by tag
+
 @Service
 @RequiredArgsConstructor
 public class GetItemByTagOperationProcessor implements GetItemByTagOperation {
 
     private final ShipmentRepository shipmentRepository;
     private  final ZooStoreRestExport zooStoreRestExport;
-    private final OnSaleItemRepository onSaleItemRepository;
     private final CheckIfOnSaleOperationProcessor checkIfOnSaleOperationProcessor;
     private  final GetItemDiscountOperationProcessor getItemDiscountOperationProcessor;
     @Override

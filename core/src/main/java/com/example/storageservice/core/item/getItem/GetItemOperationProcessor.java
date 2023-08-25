@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.storageservice.persistence.entity.Shipment;
 import com.example.storageservice.persistence.repository.ShipmentRepository;
-
 import java.util.NoSuchElementException;
+
+// Returns information about an item by id
+
 
 @Service
 @RequiredArgsConstructor

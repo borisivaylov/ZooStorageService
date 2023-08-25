@@ -11,6 +11,8 @@ import com.example.storageservice.persistence.repository.ShipmentRepository;
 
 import java.util.NoSuchElementException;
 
+ // Changes the price of an item by id
+
 @Service
 @RequiredArgsConstructor
 public class ChangePriceOperationProcessor implements com.example.storageservice.api.Item.changePrice.ChangePriceOperation {

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
+// Increases the quantity of an item in the storage
 
 @Service
 @RequiredArgsConstructor

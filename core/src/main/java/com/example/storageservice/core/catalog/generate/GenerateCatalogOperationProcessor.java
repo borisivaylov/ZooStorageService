@@ -16,10 +16,10 @@ import com.example.storageservice.persistence.repository.OnSaleItemRepository;
 import com.example.storageservice.persistence.repository.ShipmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.sql.Timestamp;
 import java.util.*;
 
+// Generate a catalog manually
 @Service
 @RequiredArgsConstructor
 public class GenerateCatalogOperationProcessor implements GenerateCatalogOperation {
@@ -39,10 +39,9 @@ public class GenerateCatalogOperationProcessor implements GenerateCatalogOperati
 
         for (int i =0; i<operationInput.getItemsCount();i++)
         {
-            CatalogItemResult currentItem = addCatalogItemOperationProcessor.process(CatalogItemInput.
-                    builder()
+            CatalogItemResult currentItem = addCatalogItemOperationProcessor.process(CatalogItemInput.builder()
                     .ListOfItems(items)
-                            .build());
+                    .build());
 
             onSaleItemRepository.save(OnSaleItem.builder()
                     .itemId(currentItem.getItemId())
@@ -53,10 +52,10 @@ public class GenerateCatalogOperationProcessor implements GenerateCatalogOperati
         }
 
         Catalog newCatalog = Catalog.builder()
-                .items(onSaleItemIds)
-                .dateOfCreation(new Timestamp(System.currentTimeMillis()))
-                .expired(false)
-                .build();
+                    .items(onSaleItemIds)
+                    .dateOfCreation(new Timestamp(System.currentTimeMillis()))
+                    .expired(false)
+                    .build();
 
 
         ExpirationDateInput expirationDateInput = ExpirationDateInput.builder()
@@ -67,15 +66,12 @@ public class GenerateCatalogOperationProcessor implements GenerateCatalogOperati
                 .process(expirationDateInput).getDateOfExpiration());
 
 
-
         catalogRepository.save(newCatalog);
 
         newCatalog.getItems().forEach( item ->{
 
             OnSaleItem onSaleItem = onSaleItemRepository.findByItemId(item)
                     .orElseThrow(()-> new NoSuchElementException("No such item") );
-
-
 
             onSaleItemRepository.save(OnSaleItem.builder()
                     .catalogId(newCatalog.getCatalogId())
@@ -85,10 +81,10 @@ public class GenerateCatalogOperationProcessor implements GenerateCatalogOperati
         });
 
         return GenerateCatalogResult.builder()
-                .catalogId(newCatalog.getCatalogId())
-                .items(newCatalog.getItems())
-                .dateOfCreation(new Timestamp(System.currentTimeMillis()))
-                .dateOfExpiration(newCatalog.getDateOfExpiration())
-                .build();
+                    .catalogId(newCatalog.getCatalogId())
+                    .items(newCatalog.getItems())
+                    .dateOfCreation(new Timestamp(System.currentTimeMillis()))
+                    .dateOfExpiration(newCatalog.getDateOfExpiration())
+                    .build();
     }
 }
