@@ -29,6 +29,10 @@ public class ExportItemOperationProcessor implements com.example.storageservice.
                 .quantity(shipment.getQuantity())
                 .build();
 
+        if (shipment.getQuantity() == 0){
+            shipment.setInStock(false);
+        }
+
         shipmentRepository.save(shipment);
 
         return exportResponse;

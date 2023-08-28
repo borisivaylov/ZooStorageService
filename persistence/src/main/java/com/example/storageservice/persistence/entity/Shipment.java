@@ -20,5 +20,6 @@ public class Shipment {
     private UUID itemId;
     private long quantity;
     private Double price;
+    private boolean inStock =true;
 
 }
